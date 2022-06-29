@@ -15,8 +15,6 @@ import com.devsuperior.uri2602.repositories.CustomerRepository;
 @SpringBootApplication
 public class Uri2602Application implements CommandLineRunner{
 
-	@Autowired
-	private CustomerRepository repository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Uri2602Application.class, args);
@@ -24,20 +22,6 @@ public class Uri2602Application implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<CustomerMinProjection> list = repository.search1("RS");
-		List<CustomerMinDTO> result1 = list.stream().map(x -> new CustomerMinDTO(x)).collect(Collectors.toList());
 		
-		System.out.println("\n**Resultado SQL Raiz**");
-		for (CustomerMinDTO obj : result1) {
-			System.out.println(obj);
-		}
-		System.out.println("\n\n");
-		
-		List<CustomerMinDTO> result2 = repository.search2("RS");
-		
-		System.out.println("\n**Resultado SQL JPQL**");
-		for (CustomerMinDTO obj : result1) {
-			System.out.println(obj);
-		}
 	}
 }

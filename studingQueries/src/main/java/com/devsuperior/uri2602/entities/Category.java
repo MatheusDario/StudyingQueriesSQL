@@ -1,11 +1,24 @@
 package com.devsuperior.uri2602.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "categories")
 public class Category {
 	
+	@Id
 	private Long id;
 	private String name;
+	
+	@OneToMany
+	private List<Product> products = new ArrayList<>();
 	
 	public Category() {
 	}
@@ -30,6 +43,10 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public List<Product> getProducts() {
+		return products;
+	}
 
 	@Override
 	public int hashCode() {
@@ -47,4 +64,10 @@ public class Category {
 		Category other = (Category) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + "]";
+	}
+	
 }

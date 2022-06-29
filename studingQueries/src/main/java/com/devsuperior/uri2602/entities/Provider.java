@@ -1,12 +1,17 @@
 package com.devsuperior.uri2602.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "customers")
-public class Customer {
+@Table(name = "providers")
+public class Provider {
 
 	@Id
 	private Long id;
@@ -14,18 +19,19 @@ public class Customer {
 	private String street;
 	private String city;
 	private String state;
-	private Double creditLimit;
 	
-	public Customer() {
+	@OneToMany
+	private List<Product> products = new ArrayList<>();
+	
+	public Provider() {
 	}
 
-	public Customer(Long id, String name, String street, String city, String state, Double creditLimit) {
+	public Provider(Long id, String name, String street, String city, String state) {
 		this.id = id;
 		this.name = name;
 		this.street = street;
 		this.city = city;
 		this.state = state;
-		this.creditLimit = creditLimit;
 	}
 
 	public Long getId() {
@@ -67,18 +73,30 @@ public class Customer {
 	public void setState(String state) {
 		this.state = state;
 	}
-
-	public Double getCreditLimit() {
-		return creditLimit;
+	
+	public List<Product> getProducts() {
+		return products;
 	}
 
-	public void setCreditLimit(Double creditLimit) {
-		this.creditLimit = creditLimit;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Provider other = (Provider) obj;
+		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", street=" + street + ", city=" + city + ", state=" + state
-				+ ", creditLimit=" + creditLimit + "]";
+		return "Provider [name=" + name + "]";
 	}
 }
